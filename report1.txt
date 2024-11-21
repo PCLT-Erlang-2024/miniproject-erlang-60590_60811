@@ -1,0 +1,44 @@
+For this mini project we modelled our Product Reservation System 
+as a set of predefined number of shiment lines that have the
+producer, conveyor belt and truck all associated. The producer
+will only produce packages to a certain conveyor belt.
+
+When running the task1 'c(task1).', there will be 2 different starts:
+- 'task1:start(MAX_CAPACITY, MAX_PACKAGES).' where MAX_CAPACITY
+will be the capacity set for the trucks and MAX_PACKAGES will be the
+maximum amount of packages the single producer will make. This function
+is only for 1 shipment line.
+- 'task1:startN(N_SHIPMENTLINES, MAX_CAPACITY, MAX_PACKAGES).' where 
+N_SHIPMENTLINES will be the number of shipment lines created, MAX_CAPACITY 
+will be the capacity set for the trucks and MAX_PACKAGES will be the
+maximum amount of packages the single producer will make.
+
+Each shipment line is composed of 3 distinct units: a producer, 
+a conveyor belt and a truck. These units are launched on separate
+processes via spawn.
+
+The producer function will periodically (0.5s) create new packages
+and send them to the conveyor belt through the conveyor pid that
+was defined when the process for that conveyor belt was created.
+A package will be a record with packageId and packageSize of size 1.
+(in this first task the package size will always be 1, however this
+line of reasoning will be helpful for the next task).
+
+The conveyor function will receive packages on the aforementioned
+process and send them onto another process, 'truckPid', to the 
+truck unit.
+
+The truck function will read the data received from the 'truckPid'
+process and then store the packages until its predefined maximum
+capacity (MAX_CAPACITY) is reached. Once this happens, the truck will 
+be emptied (instantaneously for this task) and then the package that 
+could not be loaded previously will be stored.
+
+These processes will run until the amnout of maximum packages produced 
+was reached, when that happens the process producer will signal 
+the process conveyor belt to stop and that process will signal process 
+truck to stop.
+
+This report and task were developed by:
+- Pedro Gasparinho, 60590
+- Tiago Meirim, 60811
