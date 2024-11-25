@@ -1,0 +1,27 @@
+To run this task, use the same method as task 1 and 2.
+
+For this task, we decided to use the code from task 2 as a 
+foundation to implement the newly required functionalities.
+
+To implement non-instant trucks, communication must be done
+both ways between conveyors and trucks, however one process
+must be spawned befored the other, so it's impossible to
+pass the pid of the other in the arguments of the respective
+function. To deal with this problem, when the conveyor belt
+receives a package record, it will create a new record,
+the first field contains it's Pid, while the second field
+contains the package from the producer.
+
+Using the conveyor Pid, the truck can signal it with a "wait"
+message, and once the replacement is finished it will send
+a "restart" to resume package processing.
+
+After receiving a "wait" signal, the conveyor will change 
+state internally, and will stop reading other messages, such
+as the packages from the producer, and is expecting a "restart"
+message from the truck process, which will change the internally,
+once more, to the default state. 
+
+This report and task were developed by:
+- Pedro Gasparinho, 60590
+- Tiago Meirim, 60811

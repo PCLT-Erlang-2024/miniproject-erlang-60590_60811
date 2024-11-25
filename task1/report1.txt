@@ -1,0 +1,55 @@
+For this mini project we modelled our Product Reservation System as a
+set of predefined number of shiment lines that have the producer,
+conveyor belt and truck all associated. The producer will only produce
+packages to a certain conveyor belt.
+
+To run this task, open Eshell in the task1 directory and simply type:
+- "c(task1)."
+- "task1:start()." or "task1:start(x, y, z)."
+    where x,y,z are positive integers:
+        - x represents the number of shipment lines,
+        - y represents the maximum truck capacity,
+        - z represents the number of packages created by each producer 
+
+Our program will automatically compile the other modules, so there is
+no need to do it manually.
+
+Each shipment line is composed of 3 distinct units: a producer, a 
+conveyor belt and a truck. These units are launched on separate
+processes via spawn and only interact elements of the same line.
+
+The producer function will periodically (0.5s) create new packages and
+send them to the conveyor belt via its pid, which  is passed in the 
+parameters of the producer function after spawning the conveyor belt
+
+A package will be a record with an id and size. For this task, size will
+always be set to one, however this line of reasoning will be helpful 
+for the next tasks.
+
+The conveyor function will receive packages from the aforementioned
+process and send them to the respective truck process, which can be
+accessed with the truckPid parameters passed onto the conveyor function
+after the creation of the truck process.
+
+The truck function will use pattern matching to destruct the package
+received via message from the conveyor process. This is done as a  way
+to access the individual fields of the record. With the package size, the
+truck's capacity will be updated. There are two possible scenarios:
+- If the maximum capacity is not reached, the new package is loaded;
+- If the maximum capacity is reached but not exceeded, the new package is
+    loaded and the truck will be replaced with a new one with 0 capacity;
+- If the maximum capacity is exceeded, the current truck will be replaced
+    with a new one, and then the new package will be loaded. (Note that
+    for a package size that is a divisor of the maximum capacity this 
+    case will not occur in the first task, but it is coded anyway, even
+    though we assume a package size of 1)
+In this task, when a truck is replaced, it occurs instantaneously.
+
+Once a producer process finishes creating packages, it will send a signal to
+the conveyor belt, which in turn will signal the truck to stop. Messages are
+processed sequentially, every package will be processed before the program
+terminates.
+
+This report and task were developed by:
+- Pedro Gasparinho, 60590
+- Tiago Meirim, 60811

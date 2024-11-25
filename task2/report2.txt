@@ -1,0 +1,19 @@
+To run this task, use the same method as task1.
+
+For task 2, we decided to use the code from task 1 as a 
+foundation to implement the newly required functionalities.
+
+To implement different sized packages, we decided that the
+producer function will generate a package with a random 
+integer size ranging from 1 to the maximum capacity of the
+trucks (inclusive).
+
+As previously stated, in the task1 report, the case where
+the capacity of a truck would be exceeded with a new package
+was already implement and remains unchanged, however, in the
+circumstances of task 2 onwards, this case is more likely to 
+happen, as packages will differ in sizes. 
+
+This report and task were developed by:
+- Pedro Gasparinho, 60590
+- Tiago Meirim, 60811
